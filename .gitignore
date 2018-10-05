@@ -1,0 +1,5 @@
+*.retry
+*.log
+*/secrets.yaml
+tmp
+.idea
