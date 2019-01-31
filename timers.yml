@@ -1,0 +1,10 @@
+weblog: yes
+backlog: yes
+
+sonoffs:
+  - sonoff_95b510-5392.local
+  
+commands:
+  - "Timer2"
+
+
