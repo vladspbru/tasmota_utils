@@ -1,6 +1,6 @@
 weblog: yes
 
-sonoffs:
+hosts:
   - sonoff_95B510-5392.local
   
 

@@ -68,7 +68,7 @@ def main():
         print("Config Error: Maximum commands per backlog request must be <= 30.")
         return
 
-    for host in cfg["sonoffs"]:
+    for host in cfg["hosts"]:
         print("{}".format(host))
         setup_device(host, commands, backlog, weblog)
         print("Ok\n".format(host))
