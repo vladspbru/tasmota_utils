@@ -2,6 +2,7 @@ weblog: yes
 #backlog: yes
 
 sonoffs:
+  - sonoff_F4BC40
 
 hosts:
   - sonoff_F4BC40-7232.local
