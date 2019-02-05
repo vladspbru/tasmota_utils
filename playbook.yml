@@ -12,5 +12,4 @@ hosts:
 commands:
     #period for publish tele
   - "TelePeriod 180"
-
   - "status 0"

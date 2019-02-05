@@ -14,7 +14,7 @@ def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag = True  # set flag
         broker = userdata
-        print("{} connected OK.".format(broker["address"]))
+        print("{} connected. OK.".format(broker["address"]))
         # client.subscribe(topic)
         topic = "{}#".format(broker["prefix"])
         mid = client.subscribe(topic)
