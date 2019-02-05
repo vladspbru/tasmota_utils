@@ -5,6 +5,7 @@ import sys
 import yaml
 from urllib.request import urlopen
 from urllib.parse import quote
+from my_tasmota import gen_addr
 
 
 def http_query(host, cmnd):
@@ -31,12 +32,11 @@ def setup_device(host, cmnds, backlog, weblog):
             print("weblog ON")
         # ------------------------------------------------------------------------------------------
         for cmnd in commands:
-            print("- {}".format( http_query(host, cmnd) ))
+            print("- {}".format(http_query(host, cmnd)))
         # ------------------------------------------------------------------------------------------
         if wl:
             http_query(host, "weblog 0")
             print("weblog OFF")
-
 
     except:
         print("*************\nUnexpected Error:", sys.exc_info()[1])
@@ -68,6 +68,9 @@ def main():
         print("Config Error: Maximum commands per backlog request must be <= 30.")
         return
 
+    if "hosts" not in cfg:
+        cfg["hosts"] = [gen_addr(d) for d in cfg["sonoffs"]]
+
     for host in cfg["hosts"]:
         print("{}".format(host))
         setup_device(host, commands, backlog, weblog)
@@ -78,8 +81,9 @@ if __name__ == '__main__':
     try:
         print('-----------------------------------------------')
         main()
-    except (SystemExit, KeyboardInterrupt):
         print('-----------------------------------------------')
+    except (SystemExit, KeyboardInterrupt):
+        pass
     except:
         type, value, traceback = sys.exc_info()
         print("Exception: {}".format(value))

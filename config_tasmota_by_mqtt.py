@@ -6,16 +6,17 @@ import yaml
 import paho.mqtt.client as mqtt
 # import paho.mqtt.publish as publish
 import time
+from my_tasmota import get_dname
 
 mqtt_cli = None
 
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.connected_flag = True  # set flag
+        client.connected_flag = True
         broker = userdata
-        print("{} connected. OK.".format(broker["address"]))
-        # client.subscribe(topic)
+        print("{} connected. OK.\n".format(broker["address"]))
+
         topic = "{}#".format(broker["prefix"])
         mid = client.subscribe(topic)
         print(f"subscribtion: {topic} -> {mid}")
@@ -27,7 +28,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_disconnect(client, userdata, rc):
     client.connected_flag = False
-    print(f"broker DISCONNECTED. Result={rc}")
+    print(f"broker DISCONNECTED. Result= {rc}")
 
 
 def on_publish(client, userdata, mid):
@@ -41,7 +42,6 @@ def on_message(client, userdata, msg):
 def setup_device(device, cmnds, broker):
     commands = cmnds
     for cmd in commands:
-        # print("- {}".format(mqtt_query(device, cmnd)))
         name, val = cmd.split()
         topic = "{prefix}cmnd/{device}/{cmnd}".format(prefix=broker["prefix"], device=device, cmnd=name)
 
@@ -71,10 +71,10 @@ def main():
 
     global mqtt_cli
     mqtt_cli = mqtt.Client(client_id=broker["clientid"], clean_session=broker["cleansession"], userdata=broker)
-    mqtt_cli.on_publish = on_publish
-    mqtt_cli.on_message = on_message
     mqtt_cli.on_connect = on_connect
     mqtt_cli.on_disconnect = on_disconnect
+    mqtt_cli.on_publish = on_publish
+    # mqtt_cli.on_message = on_message
     mqtt_cli.loop_start()
 
     try:
@@ -84,18 +84,23 @@ def main():
         if "username" in broker:
             mqtt_cli.username_pw_set(username=broker["username"], password =broker["password"])
         mqtt_cli.connect(host=broker["address"], port=broker["port"], keepalive=10)
+        print("connecting ...")
     except:
         print("Bad connection.")
         return
 
     while not mqtt_cli.connected_flag and not mqtt_cli.bad_connection_flag:  # wait in loop
-        print("In wait ...")
+        print("in wait ...")
         time.sleep(3)
     if mqtt_cli.bad_connection_flag:
         mqtt_cli.loop_stop()
         return
-        # sys.exit()
 
+
+    if "sonoffs" not in cfg:
+        cfg["sonoffs"] = [ get_dname(addr) for addr in cfg["hosts"] ]
+
+    mqtt_cli.on_message = on_message
     for dev in cfg["sonoffs"]:
         print(f"\n{dev} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         setup_device(dev, commands, broker)
