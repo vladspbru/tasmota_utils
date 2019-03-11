@@ -1,11 +1,11 @@
 weblog: yes
 #backlog: yes
 
-_sonoffs:
-  - sonoff_F4BC40
+sonoffs:
+  - sonoff_68B5C7
   - sonoff_95B510
 
-hosts:
+_hosts:
   - sonoff_F4BC40-7232.local
   - sonoff_95B510-5392.local
   
@@ -14,3 +14,4 @@ commands:
     #period for publish tele
   - "TelePeriod 180"
   - "status 0"
+  - "Timers ?"
