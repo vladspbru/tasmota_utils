@@ -32,7 +32,8 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_publish(client, userdata, mid):
-    print(f"-> {mid}")
+    # print(f"-> {mid}")
+    pass
 
 
 def on_message(client, userdata, msg):
@@ -48,7 +49,8 @@ def setup_device(device, cmnds, broker):
         print("> {}: {}".format(topic, val))
         global mqtt_cli
         r = mqtt_cli.publish(topic, val)
-        print(f"Published result:  {r}")
+        if r.rc != 0:
+            print(f"Published result:  {r}")
 
 
 def main():
@@ -59,7 +61,7 @@ def main():
     args = parser.parse_args()
 
     with open(args.cfg, 'r') as ymlfile:
-        cfg = yaml.load(ymlfile)
+        cfg = yaml.safe_load(ymlfile)
 
     commands = cfg["commands"]
     if not commands:
@@ -67,7 +69,7 @@ def main():
         return
 
     with open(args.broker, 'r') as ymlfile:
-        broker = yaml.load(ymlfile)
+        broker = yaml.safe_load(ymlfile)
 
     global mqtt_cli
     mqtt_cli = mqtt.Client(client_id=broker["clientid"], clean_session=broker["cleansession"], userdata=broker)
@@ -107,7 +109,7 @@ def main():
         time.sleep(1)
         print("Ok")
 
-    time.sleep(10)
+    time.sleep(15)
     mqtt_cli.disconnect()
     mqtt_cli.loop_stop()
 
