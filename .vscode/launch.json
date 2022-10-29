@@ -1,0 +1,72 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "start Main Dev",
+            "type": "python",
+            "request": "launch",
+            "program": "main_dev.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "ENV_CWD": "/home/vladislav/dkap/apps.bin",
+                "ENV_SURVEY": "test"
+            }
+        },
+        {
+            "name": "start Tools",
+            "type": "python",
+            "request": "launch",
+            "program": "main_tools.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "ENV_CWD": "/home/vladislav/dkap/apps.bin",
+                "ENV_SURVEY": "test"
+            }
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "ENV_CWD": "/home/vladislav/dkap/apps.bin",
+                "ENV_SURVEY": "test"
+            }
+        },
+        {
+            "name": "Win Main",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "ENV_CWD": "Y:/apps.bin/_win64_/station",
+                "ENV_SURVEY": "test"
+            }
+        },
+        {
+            "name": "PyTest",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "module": "pytest",
+            "args": [
+                "-v"
+                //, "-m not crypto and not s3_slow and not s3"
+            ],
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "_DEBUG": "1"
+            },
+            "justMyCode": false
+        }
+    ]
+}

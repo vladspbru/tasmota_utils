@@ -1,20 +1,21 @@
 weblog: yes
-backlog: yes
+#backlog: yes
 
-sonoffs:
+_sonoffs:
 #  - sonoff_95B510  # main
   - sonoff_F4BC40  # water
   - sonoff_68B5C7  # sonar
 
-_hosts:
-  - sonoff_95b510-5392.local
+hosts:
+  - 192.168.2.58
+  - 192.168.2.100
   
 commands:
 #  - "status 0"
-#  - "Timers OFF"
-  - "Timers ON"
-#  - 'Timer1 {"Arm":1,"Mode":0,"Time":"06:30","Window":0,"Days":"1111111","Repeat":1,"Output":1,"Action":0}'
-#  - 'Timer2 {"Arm":1,"Mode":0,"Time":"00:10","Window":0,"Days":"1111111","Repeat":1,"Output":1,"Action":1}'
+  - "Timers OFF"
+#  - "Timers ON"
+  - 'Timer1 {"Arm":1,"Mode":0,"Time":"06:30","Window":0,"Days":"1111111","Repeat":1,"Output":1,"Action":0}'
+  - 'Timer2 {"Arm":1,"Mode":0,"Time":"00:10","Window":0,"Days":"1111111","Repeat":1,"Output":1,"Action":1}'
 #  - "Timer1 ?"
 #  - "Timer2 ?"
 #  - "Timer3 ?"

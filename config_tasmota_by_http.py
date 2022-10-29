@@ -45,11 +45,11 @@ def setup_device(host, cmnds, backlog, weblog):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="initial config tasmota system")
-    parser.add_argument('-c', '--cfg', dest='cfg', help='config yaml file', default="playbook.yml")
+    parser.add_argument('-c', '--cfg', dest='cfg', help='config yaml file', default="init_params.yml")
     args = parser.parse_args()
 
     with open(args.cfg, 'r') as ymlfile:
-        cfg = yaml.load(ymlfile)
+        cfg = yaml.full_load(ymlfile)
 
     backlog = False
     if "backlog" in cfg.keys():
